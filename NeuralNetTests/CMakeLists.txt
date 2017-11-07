@@ -9,7 +9,7 @@ include_directories(${CMAKE_SOURCE_DIR})
 
 add_executable(runNeuralNetLibTests
         NeuralNetLibTests.cpp
-        ../NeuralNetLib/DataSet.h)
+        DataSetReaderTests.cpp)
 
 target_link_libraries(runNeuralNetLibTests NeuralNetLib)
 target_link_libraries(runNeuralNetLibTests armadillo)

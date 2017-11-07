@@ -5,23 +5,26 @@
 
 #include <armadillo>
 
-struct DataSet
+namespace NeuralNet
 {
-    long inputCount_;
-    long outputCout_;
-
-    struct DataClass
+    struct DataSet
     {
-        arma::Mat<> inputs_;
-        arma::Mat<> outputs_;
-        classes_;
-        count_;
-        bias_;
+        long inputCount_;
+        long outputCout_;
 
+        struct DataClass
+        {
+            arma::Mat<float> inputs_;
+            arma::Mat<int> outputs_;
+            arma::Col<int> classes_;
+            unsigned long count_;
+            arma::Col<double> bias_;
+
+        };
+
+        DataClass trainingSet_;
+        DataClass validationSet_;
+        DataClass testSet_;
     };
-
-    DataClass trainingSet_;
-    DataClass validationSet_;
-    DataClass testSet_;
-};
+}
 
