@@ -1,5 +1,7 @@
 #pragma once
 
+#include <boost/lexical_cast.hpp>
+
 #include <armadillo>
 
 namespace NeuralNetLib
@@ -43,4 +45,47 @@ namespace NeuralNetLib
 
         return outputMatrix;
     }
+
+    template <typename T>
+    arma::Mat<T> applyActivationFunction(const arma::Mat<T> & inputMatrix)
+    {
+        const auto activationFunction = [](T value) -> T
+        {
+            return (tanh(value) + 1) / 2;
+        };
+
+        auto resultMatrix = inputMatrix;
+
+        for(int i = 0; i < resultMatrix.n_cols; ++i)
+        {
+            for(int j = 0; j < resultMatrix.n_rows; ++j)
+            {
+                resultMatrix[j, i] = activationFunction(inputMatrix[j, i]);
+            }
+        }
+
+        return resultMatrix;
+    }
+
+    template <typename T>
+    arma::Mat<T> applyActivationFunctionDerivative(const arma::Mat<T> & inputMatrix)
+    {
+        const auto activationFunction = [](T value) -> T
+        {
+            return (1 - atanh(value)) / 2;
+        };
+
+        auto resultMatrix = inputMatrix;
+
+        for(int i = 0; i < resultMatrix.n_cols; ++i)
+        {
+            for(int j = 0; j < resultMatrix.n_rows; ++j)
+            {
+                resultMatrix[j, i] = activationFunction(inputMatrix[j, i]);
+            }
+        }
+
+        return resultMatrix;
+    }
+
 }
